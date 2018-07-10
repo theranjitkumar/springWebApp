@@ -1,19 +1,27 @@
 package springWebapp.controller;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+//import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
-@RestController
+@Controller
 public class HomeController {
 	
 	@RequestMapping("/")
-	public String defaultPage(){
-		return "hello form spring app";
+	public ModelAndView defaultPage(){
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("home.jsp");
+		mv.addObject("title", "Home");
+		return mv;
 	}
 	
-	@RequestMapping("/home")
-	public String home(){
-		return "hello form Home";
+	@RequestMapping("/about")
+	public ModelAndView about(){
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("about.jsp");
+		mv.addObject("title", "About");
+		return mv;
 	}	
 
 }
