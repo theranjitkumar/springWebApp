@@ -9,8 +9,13 @@
 <body>
 
 	<h3> ${title } </h3>
-	<p> welcome on ${title } page</p>
+	<p> welcome on ${title } ${student } page</p>
 	<a href="./about">about</a>
+	
+	
+	<a href="./add">add</a>
+	<a href="./update">update</a>
+	<a href="./delete">delete</a>
 
 </body>
 </html>
