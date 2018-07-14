@@ -1,11 +1,9 @@
 package springWebapp.controller;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
+import java.util.*;
 
-import javax.swing.tree.RowMapper;
-import javax.swing.tree.TreePath;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -15,11 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 //import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.sun.javafx.collections.MappingChange.Map;
-import com.sun.javafx.text.ScriptMapper;
-
-import springWebapp.modal.Student;
-
 @Controller
 public class HomeController {
 	@Autowired
@@ -28,30 +21,21 @@ public class HomeController {
 	@RequestMapping("/")
 	public ModelAndView defaultPage(){
 		String sql = "SELECT * FROM student";
-		
-//		public List<Student> findAllStudents() {
-//		    return this.jdbcTemplate.query( "select name, city from student", new ScriptMapper());
-//		}
-//
-//		private static final class StudentMapper implements ScriptMapper {
-//
-//		    public Student mapRow(ResultSet rs, int rowNum) throws SQLException {
-//		    	Student student = new Student();
-//		    	student.setName(rs.getString("name"));
-//		    	student.setCity(rs.getString("city"));
-//		        return student;
-//		    }
-//		}
+		List<Map<String, Object>> students = this.jdbcTemplate.queryForList(sql);
 				
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("home.jsp");
 		mv.addObject("title", "Home");
+		mv.addObject("students", students);
+		mv.setViewName("home.jsp");
 		return mv;
 	}
 
-	@RequestMapping(path="/add")
-	public ModelAndView add(){
-		this.jdbcTemplate.update("insert into student(id,name,city) values(?,?,?)",103, "kallu","ggn");
+	@RequestMapping(path="/", method=RequestMethod.POST)
+	public ModelAndView add(HttpServletRequest request, HttpServletResponse response){
+		String id = request.getParameter("id"); //103;
+		String name = request.getParameter("name"); //"Amit";
+		String city =  request.getParameter("city"); //"Gurgaon";
+		this.jdbcTemplate.update("insert into student(id,name,city) values(?,?,?)",id, name,city);
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("home.jsp");
 		mv.addObject("title", "added");

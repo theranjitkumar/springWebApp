@@ -4,14 +4,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>about</title>
+<title> student list </title>
 </head>
 <body>
-	<h3> ${title} </h3>
-	<a href="./">home</a>
-	<hr/>
-	<p> welcome on ${title } page</p>
-	
+
+	<h3> ${title } </h3>
+	<p> welcome ${title} </p>
 
 </body>
 </html>
